@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:pwp="http://www.cs.otago.ac.nz/staffpriv/ok/pwp.pl">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Review: an electronic transcription</title>
+      </titleStmt>
+      <publicationStmt>
+        <p>Published as an example for the Introduction module of TBE.</p>
+      </publicationStmt>
+      <sourceDesc>
+        <p>No source: born digital.</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <ab>
+        <seg pwp:ask="member(Item:Pos = Attrs, SEGMENTS)" pwp:tag="-">
+          <pc pwp:ask="Item = punct, memberchk(value = Text, Attrs)" pwp:use="Text" />
+          <pb n="$(Text)$" pwp:att="$" pwp:ask="Item = page, memberchk(value = Text, Attrs)" pwp:use="Text" />
+          <lb n="$(Text)$" pwp:att="$" pwp:ask="Item = line, memberchk(value = Text, Attrs)" pwp:use="Text" />
+          <note type="year" place="margin" pwp:att="$" pwp:ask="Item = year, memberchk(value = Text, Attrs)" pwp:use="Text" />
+          <w pwp:ask="Item = word" xml:id="w$(Pos)$" pwp:att="$">
+            <seg pwp:tag="-" pwp:ask="\+ memberchk(parts = _, Attrs), member(value = Text, Attrs)" pwp:use="Text" />
+            <seg pwp:tag="-" pwp:ask="memberchk(parts = Parts, Attrs), member(P:_ = PAttrs, Parts)">
+              <pc pwp:ask="P = punct, memberchk(value = Text, PAttrs)" pwp:use="Text" />
+              <pb n="$(Text)$" pwp:att="$" pwp:ask="P = page, memberchk(value = Text, PAttrs)" pwp:use="Text" />
+              <lb n="$(Text)$" pwp:att="$" pwp:ask="P = line, memberchk(value = Text, PAttrs)" pwp:use="Text" />
+              <note type="year" place="margin" pwp:att="$" pwp:ask="Item = year, memberchk(value = Text, PAttrs)" pwp:use="Text" />
+              <w pwp:ask="P = part, memberchk(value = Text, PAttrs)" pwp:use="Text" />
+            </seg>
+            <span pwp:tag="-" pwp:ask="member(analysis = AnaAttrs, Attrs)">
+              <fs type="grdict" pwp:ask="member(grdict = Values, AnaAttrs)">
+                <f name="$(Name)$" pwp:att="$" pwp:ask="member(Name = V, Values)"><symbolic name="$(V)$" pwp:att="$" /></f>
+                <f name="$(Tok)$" pwp:att="$" pwp:ask="member(Tok, Values), atom(Tok)"><binary value="true" /></f>
+              </fs>
+              <fs type="gramm" pwp:ask="member(grdict = Values, AnaAttrs)">
+                <f name="$(Name)$" pwp:att="$" pwp:ask="member(Name = V, Values)"><symbolic name="$(V)$" pwp:att="$" /></f>
+                <f name="$(Tok)$" pwp:att="$" pwp:ask="member(Tok, Values), atom(Tok)"><binary value="true" /></f>
+              </fs>
+              <fs type="lexic">
+                <f name="lemma" pwp:ask="member(lemma = Text, AnaAttrs)"><string pwp:use="Text"></string></f>
+              </fs>
+            </span>
+          </w>
+        </seg>
+      </ab>
+      <spanGrp type="fragments">
+        <span pwp:ask="member(fragment:_ = Attrs, SEGMENTS), memberchk(attach = L, Attrs), maplist(atom_number, AL, L),
+                       maplist(atom_concat('#w'), AL, ALW), atomic_list_concat(ALW, ' ', Links)"
+              pwp:att="$" target="$(Links)$" />          
+      </spanGrp>
+    </body>
+</text>
+</TEI>
